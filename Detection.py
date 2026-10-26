@@ -59,7 +59,7 @@ def detection(frame,reference, mask):
         if y<8: drawX=x+w;drawY=y+h+8;
         else:drawX=x;drawY=y-8;
         #draw rectangle --show the detect result
-        cv2.rectangle(detectRes,(x,y),(x+w,x+h),(0,255,0),2);
+        cv2.rectangle(detectRes,(x,y),(x+w,y+h),(0,255,0),2);
         cv2.putText(detectRes,
                     f"Object{area:.0f}px",
                     (drawX,drawY),
