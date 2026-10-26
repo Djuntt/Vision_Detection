@@ -3,8 +3,55 @@ import cv2
 import numpy as np
 import os
 import Detection 
+from pathlib import Path
 
 initialPicture="D:\Code\Vision_Detection-main\RefPic\Ref1.png"; #Reference Picture
+
+
+BASE_DIR = Path(__file__).resolve().parent
+REFERENCE_DIR = BASE_DIR / "RefPic"
+TEST_DIR = BASE_DIR / "TestPic"
+
+REFERENCE_IMAGE = REFERENCE_DIR / "Ref1.png"
+
+SUPPORTED_EXTENSIONS = {
+    ".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff", ".webp"
+}
+
+
+def read_pictures(folder):
+    """
+    Read all supported image files in a folder.
+
+    Returns a list of (image_path, image) pairs.
+    Unreadable images are skipped with a warning.
+    """
+    folder = Path(folder)
+
+    if not folder.is_dir():
+        raise FileNotFoundError(
+            f"Image folder does not exist: {folder}"
+        )
+
+    pictures = []
+
+    for image_path in sorted(folder.iterdir()):
+        if not image_path.is_file():
+            continue
+
+        if image_path.suffix.lower() not in SUPPORTED_EXTENSIONS:
+            continue
+
+        image = cv2.imread(str(image_path))
+
+        if image is None:
+            print(f"Warning: Cannot read {image_path.name}")
+            continue
+
+        pictures.append((image_path, image))
+
+    return pictures
+
 
 def main():
     #TO DO: Camera Controller
