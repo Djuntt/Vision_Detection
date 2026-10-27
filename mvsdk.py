@@ -1174,6 +1174,12 @@ def CameraSetLightFrequency(hCamera, iFrequencySel):
 	SetLastError(err_code)
 	return err_code
 
+def CameraSetFrameRate(hCamera, rate_hz):
+	"""Set integer frame frequency; supported on selected camera models."""
+	err_code = _sdk.CameraSetFrameRate(hCamera, int(rate_hz))
+	SetLastError(err_code)
+	return err_code
+
 def CameraSetFrameSpeed(hCamera, iFrameSpeed):
 	err_code = _sdk.CameraSetFrameSpeed(hCamera, iFrameSpeed)
 	SetLastError(err_code)
